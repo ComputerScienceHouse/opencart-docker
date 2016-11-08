@@ -27,6 +27,10 @@ RUN	rm -rf /var/www/html && \
 	chown -R www-data /var/www/html && \
     sed -i 's/Listen 80/Listen 8080/g' /etc/apache2/ports.conf
 
+# Fix Apache permissions
+RUN mkdir -p /var/lock/apache2 /var/run/apache2 && \
+    chmod og+rwx /var/lock/apache2 /var/run/apache2
+
 # Drop privileges
 USER www-data
 
